@@ -1,0 +1,52 @@
+import 'package:eight_queens/models/queen_model.dart';
+import 'package:eight_queens/utils/constants.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+class QueenCellWidget extends StatelessWidget {
+  const QueenCellWidget({
+    super.key,
+    required this.queen,
+    required this.selected,
+    required this.onTap,
+    required this.isSolved,
+  });
+
+  final QueenModel queen;
+  final bool selected;
+  final bool isSolved;
+  final VoidCallback onTap;
+
+  Color get boxColor => isSolved
+      ? Colors.green
+      : (queen.row % 2 == queen.col % 2)
+          ? Colors.deepPurple
+          : Colors.deepPurple.shade200;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        onTap.call();
+      },
+      child: Container(
+        width: MediaQuery.of(context).size.width / numberOfQueens,
+        height: MediaQuery.of(context).size.width / numberOfQueens,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: boxColor,
+        ),
+        child: selected
+            ? SvgPicture.asset(
+                'assets/crown.svg',
+                width: 40,
+                colorFilter: const ColorFilter.mode(
+                  Colors.white,
+                  BlendMode.srcIn,
+                ),
+              )
+            : const SizedBox.shrink(),
+      ),
+    );
+  }
+}

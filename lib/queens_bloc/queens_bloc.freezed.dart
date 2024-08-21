@@ -18,33 +18,46 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$QueensEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() started,
+    required TResult Function(QueenModel queen) onCellSelected,
+    required TResult Function(QueenModel previous, QueenModel current)
+        onDragApplied,
+    required TResult Function() onStartPressed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? started,
+    TResult? Function(QueenModel queen)? onCellSelected,
+    TResult? Function(QueenModel previous, QueenModel current)? onDragApplied,
+    TResult? Function()? onStartPressed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? started,
+    TResult Function(QueenModel queen)? onCellSelected,
+    TResult Function(QueenModel previous, QueenModel current)? onDragApplied,
+    TResult Function()? onStartPressed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
+    required TResult Function(OnCellSelected value) onCellSelected,
+    required TResult Function(OnDragApplied value) onDragApplied,
+    required TResult Function(OnStartPressed value) onStartPressed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
+    TResult? Function(OnCellSelected value)? onCellSelected,
+    TResult? Function(OnDragApplied value)? onDragApplied,
+    TResult? Function(OnStartPressed value)? onStartPressed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
+    TResult Function(OnCellSelected value)? onCellSelected,
+    TResult Function(OnDragApplied value)? onDragApplied,
+    TResult Function(OnStartPressed value)? onStartPressed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -69,35 +82,329 @@ class _$QueensEventCopyWithImpl<$Res, $Val extends QueensEvent>
 }
 
 /// @nodoc
-abstract class _$$StartedImplCopyWith<$Res> {
-  factory _$$StartedImplCopyWith(
-          _$StartedImpl value, $Res Function(_$StartedImpl) then) =
-      __$$StartedImplCopyWithImpl<$Res>;
+abstract class _$$OnCellSelectedImplCopyWith<$Res> {
+  factory _$$OnCellSelectedImplCopyWith(_$OnCellSelectedImpl value,
+          $Res Function(_$OnCellSelectedImpl) then) =
+      __$$OnCellSelectedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({QueenModel queen});
 }
 
 /// @nodoc
-class __$$StartedImplCopyWithImpl<$Res>
-    extends _$QueensEventCopyWithImpl<$Res, _$StartedImpl>
-    implements _$$StartedImplCopyWith<$Res> {
-  __$$StartedImplCopyWithImpl(
-      _$StartedImpl _value, $Res Function(_$StartedImpl) _then)
+class __$$OnCellSelectedImplCopyWithImpl<$Res>
+    extends _$QueensEventCopyWithImpl<$Res, _$OnCellSelectedImpl>
+    implements _$$OnCellSelectedImplCopyWith<$Res> {
+  __$$OnCellSelectedImplCopyWithImpl(
+      _$OnCellSelectedImpl _value, $Res Function(_$OnCellSelectedImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? queen = null,
+  }) {
+    return _then(_$OnCellSelectedImpl(
+      queen: null == queen
+          ? _value.queen
+          : queen // ignore: cast_nullable_to_non_nullable
+              as QueenModel,
+    ));
+  }
 }
 
 /// @nodoc
 
-class _$StartedImpl implements _Started {
-  const _$StartedImpl();
+class _$OnCellSelectedImpl implements OnCellSelected {
+  const _$OnCellSelectedImpl({required this.queen});
+
+  @override
+  final QueenModel queen;
 
   @override
   String toString() {
-    return 'QueensEvent.started()';
+    return 'QueensEvent.onCellSelected(queen: $queen)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$StartedImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$OnCellSelectedImpl &&
+            (identical(other.queen, queen) || other.queen == queen));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, queen);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$OnCellSelectedImplCopyWith<_$OnCellSelectedImpl> get copyWith =>
+      __$$OnCellSelectedImplCopyWithImpl<_$OnCellSelectedImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(QueenModel queen) onCellSelected,
+    required TResult Function(QueenModel previous, QueenModel current)
+        onDragApplied,
+    required TResult Function() onStartPressed,
+  }) {
+    return onCellSelected(queen);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(QueenModel queen)? onCellSelected,
+    TResult? Function(QueenModel previous, QueenModel current)? onDragApplied,
+    TResult? Function()? onStartPressed,
+  }) {
+    return onCellSelected?.call(queen);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(QueenModel queen)? onCellSelected,
+    TResult Function(QueenModel previous, QueenModel current)? onDragApplied,
+    TResult Function()? onStartPressed,
+    required TResult orElse(),
+  }) {
+    if (onCellSelected != null) {
+      return onCellSelected(queen);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(OnCellSelected value) onCellSelected,
+    required TResult Function(OnDragApplied value) onDragApplied,
+    required TResult Function(OnStartPressed value) onStartPressed,
+  }) {
+    return onCellSelected(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(OnCellSelected value)? onCellSelected,
+    TResult? Function(OnDragApplied value)? onDragApplied,
+    TResult? Function(OnStartPressed value)? onStartPressed,
+  }) {
+    return onCellSelected?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(OnCellSelected value)? onCellSelected,
+    TResult Function(OnDragApplied value)? onDragApplied,
+    TResult Function(OnStartPressed value)? onStartPressed,
+    required TResult orElse(),
+  }) {
+    if (onCellSelected != null) {
+      return onCellSelected(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class OnCellSelected implements QueensEvent {
+  const factory OnCellSelected({required final QueenModel queen}) =
+      _$OnCellSelectedImpl;
+
+  QueenModel get queen;
+  @JsonKey(ignore: true)
+  _$$OnCellSelectedImplCopyWith<_$OnCellSelectedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$OnDragAppliedImplCopyWith<$Res> {
+  factory _$$OnDragAppliedImplCopyWith(
+          _$OnDragAppliedImpl value, $Res Function(_$OnDragAppliedImpl) then) =
+      __$$OnDragAppliedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({QueenModel previous, QueenModel current});
+}
+
+/// @nodoc
+class __$$OnDragAppliedImplCopyWithImpl<$Res>
+    extends _$QueensEventCopyWithImpl<$Res, _$OnDragAppliedImpl>
+    implements _$$OnDragAppliedImplCopyWith<$Res> {
+  __$$OnDragAppliedImplCopyWithImpl(
+      _$OnDragAppliedImpl _value, $Res Function(_$OnDragAppliedImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? previous = null,
+    Object? current = null,
+  }) {
+    return _then(_$OnDragAppliedImpl(
+      previous: null == previous
+          ? _value.previous
+          : previous // ignore: cast_nullable_to_non_nullable
+              as QueenModel,
+      current: null == current
+          ? _value.current
+          : current // ignore: cast_nullable_to_non_nullable
+              as QueenModel,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$OnDragAppliedImpl implements OnDragApplied {
+  const _$OnDragAppliedImpl({required this.previous, required this.current});
+
+  @override
+  final QueenModel previous;
+  @override
+  final QueenModel current;
+
+  @override
+  String toString() {
+    return 'QueensEvent.onDragApplied(previous: $previous, current: $current)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$OnDragAppliedImpl &&
+            (identical(other.previous, previous) ||
+                other.previous == previous) &&
+            (identical(other.current, current) || other.current == current));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, previous, current);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$OnDragAppliedImplCopyWith<_$OnDragAppliedImpl> get copyWith =>
+      __$$OnDragAppliedImplCopyWithImpl<_$OnDragAppliedImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(QueenModel queen) onCellSelected,
+    required TResult Function(QueenModel previous, QueenModel current)
+        onDragApplied,
+    required TResult Function() onStartPressed,
+  }) {
+    return onDragApplied(previous, current);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(QueenModel queen)? onCellSelected,
+    TResult? Function(QueenModel previous, QueenModel current)? onDragApplied,
+    TResult? Function()? onStartPressed,
+  }) {
+    return onDragApplied?.call(previous, current);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(QueenModel queen)? onCellSelected,
+    TResult Function(QueenModel previous, QueenModel current)? onDragApplied,
+    TResult Function()? onStartPressed,
+    required TResult orElse(),
+  }) {
+    if (onDragApplied != null) {
+      return onDragApplied(previous, current);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(OnCellSelected value) onCellSelected,
+    required TResult Function(OnDragApplied value) onDragApplied,
+    required TResult Function(OnStartPressed value) onStartPressed,
+  }) {
+    return onDragApplied(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(OnCellSelected value)? onCellSelected,
+    TResult? Function(OnDragApplied value)? onDragApplied,
+    TResult? Function(OnStartPressed value)? onStartPressed,
+  }) {
+    return onDragApplied?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(OnCellSelected value)? onCellSelected,
+    TResult Function(OnDragApplied value)? onDragApplied,
+    TResult Function(OnStartPressed value)? onStartPressed,
+    required TResult orElse(),
+  }) {
+    if (onDragApplied != null) {
+      return onDragApplied(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class OnDragApplied implements QueensEvent {
+  const factory OnDragApplied(
+      {required final QueenModel previous,
+      required final QueenModel current}) = _$OnDragAppliedImpl;
+
+  QueenModel get previous;
+  QueenModel get current;
+  @JsonKey(ignore: true)
+  _$$OnDragAppliedImplCopyWith<_$OnDragAppliedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$OnStartPressedImplCopyWith<$Res> {
+  factory _$$OnStartPressedImplCopyWith(_$OnStartPressedImpl value,
+          $Res Function(_$OnStartPressedImpl) then) =
+      __$$OnStartPressedImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$OnStartPressedImplCopyWithImpl<$Res>
+    extends _$QueensEventCopyWithImpl<$Res, _$OnStartPressedImpl>
+    implements _$$OnStartPressedImplCopyWith<$Res> {
+  __$$OnStartPressedImplCopyWithImpl(
+      _$OnStartPressedImpl _value, $Res Function(_$OnStartPressedImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$OnStartPressedImpl implements OnStartPressed {
+  const _$OnStartPressedImpl();
+
+  @override
+  String toString() {
+    return 'QueensEvent.onStartPressed()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$OnStartPressedImpl);
   }
 
   @override
@@ -106,27 +413,34 @@ class _$StartedImpl implements _Started {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() started,
+    required TResult Function(QueenModel queen) onCellSelected,
+    required TResult Function(QueenModel previous, QueenModel current)
+        onDragApplied,
+    required TResult Function() onStartPressed,
   }) {
-    return started();
+    return onStartPressed();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? started,
+    TResult? Function(QueenModel queen)? onCellSelected,
+    TResult? Function(QueenModel previous, QueenModel current)? onDragApplied,
+    TResult? Function()? onStartPressed,
   }) {
-    return started?.call();
+    return onStartPressed?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? started,
+    TResult Function(QueenModel queen)? onCellSelected,
+    TResult Function(QueenModel previous, QueenModel current)? onDragApplied,
+    TResult Function()? onStartPressed,
     required TResult orElse(),
   }) {
-    if (started != null) {
-      return started();
+    if (onStartPressed != null) {
+      return onStartPressed();
     }
     return orElse();
   }
@@ -134,69 +448,52 @@ class _$StartedImpl implements _Started {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
+    required TResult Function(OnCellSelected value) onCellSelected,
+    required TResult Function(OnDragApplied value) onDragApplied,
+    required TResult Function(OnStartPressed value) onStartPressed,
   }) {
-    return started(this);
+    return onStartPressed(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
+    TResult? Function(OnCellSelected value)? onCellSelected,
+    TResult? Function(OnDragApplied value)? onDragApplied,
+    TResult? Function(OnStartPressed value)? onStartPressed,
   }) {
-    return started?.call(this);
+    return onStartPressed?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
+    TResult Function(OnCellSelected value)? onCellSelected,
+    TResult Function(OnDragApplied value)? onDragApplied,
+    TResult Function(OnStartPressed value)? onStartPressed,
     required TResult orElse(),
   }) {
-    if (started != null) {
-      return started(this);
+    if (onStartPressed != null) {
+      return onStartPressed(this);
     }
     return orElse();
   }
 }
 
-abstract class _Started implements QueensEvent {
-  const factory _Started() = _$StartedImpl;
+abstract class OnStartPressed implements QueensEvent {
+  const factory OnStartPressed() = _$OnStartPressedImpl;
 }
 
 /// @nodoc
 mixin _$QueensState {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    required TResult orElse(),
-  }) =>
+  List<QueenModel> get selectedSolution => throw _privateConstructorUsedError;
+  bool get isSolved => throw _privateConstructorUsedError;
+  int get count => throw _privateConstructorUsedError;
+  bool? get isPlacementValid => throw _privateConstructorUsedError;
+  PlacementFeedback? get invalidFeedback => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $QueensStateCopyWith<QueensState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -205,6 +502,13 @@ abstract class $QueensStateCopyWith<$Res> {
   factory $QueensStateCopyWith(
           QueensState value, $Res Function(QueensState) then) =
       _$QueensStateCopyWithImpl<$Res, QueensState>;
+  @useResult
+  $Res call(
+      {List<QueenModel> selectedSolution,
+      bool isSolved,
+      int count,
+      bool? isPlacementValid,
+      PlacementFeedback? invalidFeedback});
 }
 
 /// @nodoc
@@ -216,100 +520,185 @@ class _$QueensStateCopyWithImpl<$Res, $Val extends QueensState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? selectedSolution = null,
+    Object? isSolved = null,
+    Object? count = null,
+    Object? isPlacementValid = freezed,
+    Object? invalidFeedback = freezed,
+  }) {
+    return _then(_value.copyWith(
+      selectedSolution: null == selectedSolution
+          ? _value.selectedSolution
+          : selectedSolution // ignore: cast_nullable_to_non_nullable
+              as List<QueenModel>,
+      isSolved: null == isSolved
+          ? _value.isSolved
+          : isSolved // ignore: cast_nullable_to_non_nullable
+              as bool,
+      count: null == count
+          ? _value.count
+          : count // ignore: cast_nullable_to_non_nullable
+              as int,
+      isPlacementValid: freezed == isPlacementValid
+          ? _value.isPlacementValid
+          : isPlacementValid // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      invalidFeedback: freezed == invalidFeedback
+          ? _value.invalidFeedback
+          : invalidFeedback // ignore: cast_nullable_to_non_nullable
+              as PlacementFeedback?,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$InitialImplCopyWith<$Res> {
-  factory _$$InitialImplCopyWith(
-          _$InitialImpl value, $Res Function(_$InitialImpl) then) =
-      __$$InitialImplCopyWithImpl<$Res>;
+abstract class _$$QueensStateImplCopyWith<$Res>
+    implements $QueensStateCopyWith<$Res> {
+  factory _$$QueensStateImplCopyWith(
+          _$QueensStateImpl value, $Res Function(_$QueensStateImpl) then) =
+      __$$QueensStateImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {List<QueenModel> selectedSolution,
+      bool isSolved,
+      int count,
+      bool? isPlacementValid,
+      PlacementFeedback? invalidFeedback});
 }
 
 /// @nodoc
-class __$$InitialImplCopyWithImpl<$Res>
-    extends _$QueensStateCopyWithImpl<$Res, _$InitialImpl>
-    implements _$$InitialImplCopyWith<$Res> {
-  __$$InitialImplCopyWithImpl(
-      _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
+class __$$QueensStateImplCopyWithImpl<$Res>
+    extends _$QueensStateCopyWithImpl<$Res, _$QueensStateImpl>
+    implements _$$QueensStateImplCopyWith<$Res> {
+  __$$QueensStateImplCopyWithImpl(
+      _$QueensStateImpl _value, $Res Function(_$QueensStateImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? selectedSolution = null,
+    Object? isSolved = null,
+    Object? count = null,
+    Object? isPlacementValid = freezed,
+    Object? invalidFeedback = freezed,
+  }) {
+    return _then(_$QueensStateImpl(
+      selectedSolution: null == selectedSolution
+          ? _value._selectedSolution
+          : selectedSolution // ignore: cast_nullable_to_non_nullable
+              as List<QueenModel>,
+      isSolved: null == isSolved
+          ? _value.isSolved
+          : isSolved // ignore: cast_nullable_to_non_nullable
+              as bool,
+      count: null == count
+          ? _value.count
+          : count // ignore: cast_nullable_to_non_nullable
+              as int,
+      isPlacementValid: freezed == isPlacementValid
+          ? _value.isPlacementValid
+          : isPlacementValid // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      invalidFeedback: freezed == invalidFeedback
+          ? _value.invalidFeedback
+          : invalidFeedback // ignore: cast_nullable_to_non_nullable
+              as PlacementFeedback?,
+    ));
+  }
 }
 
 /// @nodoc
 
-class _$InitialImpl implements _Initial {
-  const _$InitialImpl();
+class _$QueensStateImpl implements _QueensState {
+  const _$QueensStateImpl(
+      {required final List<QueenModel> selectedSolution,
+      required this.isSolved,
+      required this.count,
+      required this.isPlacementValid,
+      required this.invalidFeedback})
+      : _selectedSolution = selectedSolution;
+
+  final List<QueenModel> _selectedSolution;
+  @override
+  List<QueenModel> get selectedSolution {
+    if (_selectedSolution is EqualUnmodifiableListView)
+      return _selectedSolution;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_selectedSolution);
+  }
+
+  @override
+  final bool isSolved;
+  @override
+  final int count;
+  @override
+  final bool? isPlacementValid;
+  @override
+  final PlacementFeedback? invalidFeedback;
 
   @override
   String toString() {
-    return 'QueensState.initial()';
+    return 'QueensState(selectedSolution: $selectedSolution, isSolved: $isSolved, count: $count, isPlacementValid: $isPlacementValid, invalidFeedback: $invalidFeedback)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$InitialImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$QueensStateImpl &&
+            const DeepCollectionEquality()
+                .equals(other._selectedSolution, _selectedSolution) &&
+            (identical(other.isSolved, isSolved) ||
+                other.isSolved == isSolved) &&
+            (identical(other.count, count) || other.count == count) &&
+            (identical(other.isPlacementValid, isPlacementValid) ||
+                other.isPlacementValid == isPlacementValid) &&
+            (identical(other.invalidFeedback, invalidFeedback) ||
+                other.invalidFeedback == invalidFeedback));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_selectedSolution),
+      isSolved,
+      count,
+      isPlacementValid,
+      invalidFeedback);
 
+  @JsonKey(ignore: true)
   @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-  }) {
-    return initial();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-  }) {
-    return initial?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-  }) {
-    return initial(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-  }) {
-    return initial?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial(this);
-    }
-    return orElse();
-  }
+  @pragma('vm:prefer-inline')
+  _$$QueensStateImplCopyWith<_$QueensStateImpl> get copyWith =>
+      __$$QueensStateImplCopyWithImpl<_$QueensStateImpl>(this, _$identity);
 }
 
-abstract class _Initial implements QueensState {
-  const factory _Initial() = _$InitialImpl;
+abstract class _QueensState implements QueensState {
+  const factory _QueensState(
+      {required final List<QueenModel> selectedSolution,
+      required final bool isSolved,
+      required final int count,
+      required final bool? isPlacementValid,
+      required final PlacementFeedback? invalidFeedback}) = _$QueensStateImpl;
+
+  @override
+  List<QueenModel> get selectedSolution;
+  @override
+  bool get isSolved;
+  @override
+  int get count;
+  @override
+  bool? get isPlacementValid;
+  @override
+  PlacementFeedback? get invalidFeedback;
+  @override
+  @JsonKey(ignore: true)
+  _$$QueensStateImplCopyWith<_$QueensStateImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
