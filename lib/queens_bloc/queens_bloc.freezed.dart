@@ -22,6 +22,7 @@ mixin _$QueensEvent {
     required TResult Function(QueenModel previous, QueenModel current)
         onDragApplied,
     required TResult Function() onStartPressed,
+    required TResult Function() onSolvePressed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -29,6 +30,7 @@ mixin _$QueensEvent {
     TResult? Function(QueenModel queen)? onCellSelected,
     TResult? Function(QueenModel previous, QueenModel current)? onDragApplied,
     TResult? Function()? onStartPressed,
+    TResult? Function()? onSolvePressed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -36,6 +38,7 @@ mixin _$QueensEvent {
     TResult Function(QueenModel queen)? onCellSelected,
     TResult Function(QueenModel previous, QueenModel current)? onDragApplied,
     TResult Function()? onStartPressed,
+    TResult Function()? onSolvePressed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -44,6 +47,7 @@ mixin _$QueensEvent {
     required TResult Function(OnCellSelected value) onCellSelected,
     required TResult Function(OnDragApplied value) onDragApplied,
     required TResult Function(OnStartPressed value) onStartPressed,
+    required TResult Function(OnSolvePressed value) onSolvePressed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -51,6 +55,7 @@ mixin _$QueensEvent {
     TResult? Function(OnCellSelected value)? onCellSelected,
     TResult? Function(OnDragApplied value)? onDragApplied,
     TResult? Function(OnStartPressed value)? onStartPressed,
+    TResult? Function(OnSolvePressed value)? onSolvePressed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -58,6 +63,7 @@ mixin _$QueensEvent {
     TResult Function(OnCellSelected value)? onCellSelected,
     TResult Function(OnDragApplied value)? onDragApplied,
     TResult Function(OnStartPressed value)? onStartPressed,
+    TResult Function(OnSolvePressed value)? onSolvePressed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -150,6 +156,7 @@ class _$OnCellSelectedImpl implements OnCellSelected {
     required TResult Function(QueenModel previous, QueenModel current)
         onDragApplied,
     required TResult Function() onStartPressed,
+    required TResult Function() onSolvePressed,
   }) {
     return onCellSelected(queen);
   }
@@ -160,6 +167,7 @@ class _$OnCellSelectedImpl implements OnCellSelected {
     TResult? Function(QueenModel queen)? onCellSelected,
     TResult? Function(QueenModel previous, QueenModel current)? onDragApplied,
     TResult? Function()? onStartPressed,
+    TResult? Function()? onSolvePressed,
   }) {
     return onCellSelected?.call(queen);
   }
@@ -170,6 +178,7 @@ class _$OnCellSelectedImpl implements OnCellSelected {
     TResult Function(QueenModel queen)? onCellSelected,
     TResult Function(QueenModel previous, QueenModel current)? onDragApplied,
     TResult Function()? onStartPressed,
+    TResult Function()? onSolvePressed,
     required TResult orElse(),
   }) {
     if (onCellSelected != null) {
@@ -184,6 +193,7 @@ class _$OnCellSelectedImpl implements OnCellSelected {
     required TResult Function(OnCellSelected value) onCellSelected,
     required TResult Function(OnDragApplied value) onDragApplied,
     required TResult Function(OnStartPressed value) onStartPressed,
+    required TResult Function(OnSolvePressed value) onSolvePressed,
   }) {
     return onCellSelected(this);
   }
@@ -194,6 +204,7 @@ class _$OnCellSelectedImpl implements OnCellSelected {
     TResult? Function(OnCellSelected value)? onCellSelected,
     TResult? Function(OnDragApplied value)? onDragApplied,
     TResult? Function(OnStartPressed value)? onStartPressed,
+    TResult? Function(OnSolvePressed value)? onSolvePressed,
   }) {
     return onCellSelected?.call(this);
   }
@@ -204,6 +215,7 @@ class _$OnCellSelectedImpl implements OnCellSelected {
     TResult Function(OnCellSelected value)? onCellSelected,
     TResult Function(OnDragApplied value)? onDragApplied,
     TResult Function(OnStartPressed value)? onStartPressed,
+    TResult Function(OnSolvePressed value)? onSolvePressed,
     required TResult orElse(),
   }) {
     if (onCellSelected != null) {
@@ -300,6 +312,7 @@ class _$OnDragAppliedImpl implements OnDragApplied {
     required TResult Function(QueenModel previous, QueenModel current)
         onDragApplied,
     required TResult Function() onStartPressed,
+    required TResult Function() onSolvePressed,
   }) {
     return onDragApplied(previous, current);
   }
@@ -310,6 +323,7 @@ class _$OnDragAppliedImpl implements OnDragApplied {
     TResult? Function(QueenModel queen)? onCellSelected,
     TResult? Function(QueenModel previous, QueenModel current)? onDragApplied,
     TResult? Function()? onStartPressed,
+    TResult? Function()? onSolvePressed,
   }) {
     return onDragApplied?.call(previous, current);
   }
@@ -320,6 +334,7 @@ class _$OnDragAppliedImpl implements OnDragApplied {
     TResult Function(QueenModel queen)? onCellSelected,
     TResult Function(QueenModel previous, QueenModel current)? onDragApplied,
     TResult Function()? onStartPressed,
+    TResult Function()? onSolvePressed,
     required TResult orElse(),
   }) {
     if (onDragApplied != null) {
@@ -334,6 +349,7 @@ class _$OnDragAppliedImpl implements OnDragApplied {
     required TResult Function(OnCellSelected value) onCellSelected,
     required TResult Function(OnDragApplied value) onDragApplied,
     required TResult Function(OnStartPressed value) onStartPressed,
+    required TResult Function(OnSolvePressed value) onSolvePressed,
   }) {
     return onDragApplied(this);
   }
@@ -344,6 +360,7 @@ class _$OnDragAppliedImpl implements OnDragApplied {
     TResult? Function(OnCellSelected value)? onCellSelected,
     TResult? Function(OnDragApplied value)? onDragApplied,
     TResult? Function(OnStartPressed value)? onStartPressed,
+    TResult? Function(OnSolvePressed value)? onSolvePressed,
   }) {
     return onDragApplied?.call(this);
   }
@@ -354,6 +371,7 @@ class _$OnDragAppliedImpl implements OnDragApplied {
     TResult Function(OnCellSelected value)? onCellSelected,
     TResult Function(OnDragApplied value)? onDragApplied,
     TResult Function(OnStartPressed value)? onStartPressed,
+    TResult Function(OnSolvePressed value)? onSolvePressed,
     required TResult orElse(),
   }) {
     if (onDragApplied != null) {
@@ -417,6 +435,7 @@ class _$OnStartPressedImpl implements OnStartPressed {
     required TResult Function(QueenModel previous, QueenModel current)
         onDragApplied,
     required TResult Function() onStartPressed,
+    required TResult Function() onSolvePressed,
   }) {
     return onStartPressed();
   }
@@ -427,6 +446,7 @@ class _$OnStartPressedImpl implements OnStartPressed {
     TResult? Function(QueenModel queen)? onCellSelected,
     TResult? Function(QueenModel previous, QueenModel current)? onDragApplied,
     TResult? Function()? onStartPressed,
+    TResult? Function()? onSolvePressed,
   }) {
     return onStartPressed?.call();
   }
@@ -437,6 +457,7 @@ class _$OnStartPressedImpl implements OnStartPressed {
     TResult Function(QueenModel queen)? onCellSelected,
     TResult Function(QueenModel previous, QueenModel current)? onDragApplied,
     TResult Function()? onStartPressed,
+    TResult Function()? onSolvePressed,
     required TResult orElse(),
   }) {
     if (onStartPressed != null) {
@@ -451,6 +472,7 @@ class _$OnStartPressedImpl implements OnStartPressed {
     required TResult Function(OnCellSelected value) onCellSelected,
     required TResult Function(OnDragApplied value) onDragApplied,
     required TResult Function(OnStartPressed value) onStartPressed,
+    required TResult Function(OnSolvePressed value) onSolvePressed,
   }) {
     return onStartPressed(this);
   }
@@ -461,6 +483,7 @@ class _$OnStartPressedImpl implements OnStartPressed {
     TResult? Function(OnCellSelected value)? onCellSelected,
     TResult? Function(OnDragApplied value)? onDragApplied,
     TResult? Function(OnStartPressed value)? onStartPressed,
+    TResult? Function(OnSolvePressed value)? onSolvePressed,
   }) {
     return onStartPressed?.call(this);
   }
@@ -471,6 +494,7 @@ class _$OnStartPressedImpl implements OnStartPressed {
     TResult Function(OnCellSelected value)? onCellSelected,
     TResult Function(OnDragApplied value)? onDragApplied,
     TResult Function(OnStartPressed value)? onStartPressed,
+    TResult Function(OnSolvePressed value)? onSolvePressed,
     required TResult orElse(),
   }) {
     if (onStartPressed != null) {
@@ -482,6 +506,121 @@ class _$OnStartPressedImpl implements OnStartPressed {
 
 abstract class OnStartPressed implements QueensEvent {
   const factory OnStartPressed() = _$OnStartPressedImpl;
+}
+
+/// @nodoc
+abstract class _$$OnSolvePressedImplCopyWith<$Res> {
+  factory _$$OnSolvePressedImplCopyWith(_$OnSolvePressedImpl value,
+          $Res Function(_$OnSolvePressedImpl) then) =
+      __$$OnSolvePressedImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$OnSolvePressedImplCopyWithImpl<$Res>
+    extends _$QueensEventCopyWithImpl<$Res, _$OnSolvePressedImpl>
+    implements _$$OnSolvePressedImplCopyWith<$Res> {
+  __$$OnSolvePressedImplCopyWithImpl(
+      _$OnSolvePressedImpl _value, $Res Function(_$OnSolvePressedImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$OnSolvePressedImpl implements OnSolvePressed {
+  const _$OnSolvePressedImpl();
+
+  @override
+  String toString() {
+    return 'QueensEvent.onSolvePressed()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$OnSolvePressedImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(QueenModel queen) onCellSelected,
+    required TResult Function(QueenModel previous, QueenModel current)
+        onDragApplied,
+    required TResult Function() onStartPressed,
+    required TResult Function() onSolvePressed,
+  }) {
+    return onSolvePressed();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(QueenModel queen)? onCellSelected,
+    TResult? Function(QueenModel previous, QueenModel current)? onDragApplied,
+    TResult? Function()? onStartPressed,
+    TResult? Function()? onSolvePressed,
+  }) {
+    return onSolvePressed?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(QueenModel queen)? onCellSelected,
+    TResult Function(QueenModel previous, QueenModel current)? onDragApplied,
+    TResult Function()? onStartPressed,
+    TResult Function()? onSolvePressed,
+    required TResult orElse(),
+  }) {
+    if (onSolvePressed != null) {
+      return onSolvePressed();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(OnCellSelected value) onCellSelected,
+    required TResult Function(OnDragApplied value) onDragApplied,
+    required TResult Function(OnStartPressed value) onStartPressed,
+    required TResult Function(OnSolvePressed value) onSolvePressed,
+  }) {
+    return onSolvePressed(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(OnCellSelected value)? onCellSelected,
+    TResult? Function(OnDragApplied value)? onDragApplied,
+    TResult? Function(OnStartPressed value)? onStartPressed,
+    TResult? Function(OnSolvePressed value)? onSolvePressed,
+  }) {
+    return onSolvePressed?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(OnCellSelected value)? onCellSelected,
+    TResult Function(OnDragApplied value)? onDragApplied,
+    TResult Function(OnStartPressed value)? onStartPressed,
+    TResult Function(OnSolvePressed value)? onSolvePressed,
+    required TResult orElse(),
+  }) {
+    if (onSolvePressed != null) {
+      return onSolvePressed(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class OnSolvePressed implements QueensEvent {
+  const factory OnSolvePressed() = _$OnSolvePressedImpl;
 }
 
 /// @nodoc

@@ -35,13 +35,12 @@ class _PuzzlePageState extends State<PuzzlePage> {
             BlocConsumer<QueensBloc, QueensState>(
               listener: (context, state) {
                 if (state.selectedSolution.length == 8) {
-                  logger.d('called : ${state.isSolved}');
                   showGameResult(state.isSolved);
                 }
                 if (state.isPlacementValid == false) {
                   ScaffoldMessenger.of(context).clearSnackBars();
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    backgroundColor: Colors.redAccent,
+                    backgroundColor: Colors.deepPurpleAccent,
                     content: Text(
                       'Invalid placement: Queens at positions (${state.invalidFeedback!.queen1.row},${state.invalidFeedback!.queen1.col}) and (${state.invalidFeedback!.queen2.row},${state.invalidFeedback!.queen2.col}) can threaten each other',
                     ),
@@ -51,23 +50,24 @@ class _PuzzlePageState extends State<PuzzlePage> {
               },
               builder: (context, state) {
                 return Container(
-                    margin: const EdgeInsets.all(4),
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.width,
-                    child: DraggableGridViewBuilder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      dragCompletion: onDragAccept,
-                      isOnlyLongPress: false,
-                      dragFeedback: feedback,
-                      dragPlaceHolder: placeHolder,
-                      children: buildListOfQueens(state),
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 8,
-                        mainAxisSpacing: 2,
-                        crossAxisSpacing: 2,
-                      ),
-                    ));
+                  margin: const EdgeInsets.all(4),
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.width,
+                  child: DraggableGridViewBuilder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    dragCompletion: onDragAccept,
+                    isOnlyLongPress: false,
+                    dragFeedback: feedback,
+                    dragPlaceHolder: placeHolder,
+                    children: buildListOfQueens(state),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 8,
+                      mainAxisSpacing: 2,
+                      crossAxisSpacing: 2,
+                    ),
+                  ),
+                );
               },
             ),
             const Spacer(),
@@ -80,18 +80,23 @@ class _PuzzlePageState extends State<PuzzlePage> {
                   'Start',
                   style: TextStyle(color: Colors.white),
                 )),
-            // const SizedBox(
-            //   height: 16,
-            // ),
-            // ElevatedButton(
-            //     style: buttonStyle,
-            //     onPressed: () {
-            //       displaySolutions();
-            //     },
-            //     child: Text(
-            //       'Display solution ${solutionsCount + 1}',
-            //       style: const TextStyle(color: Colors.white),
-            //     )),
+            const SizedBox(
+              height: 16,
+            ),
+            BlocBuilder<QueensBloc, QueensState>(
+              buildWhen: (previous, current) => previous.count != current.count,
+              builder: (context, state) {
+                return ElevatedButton(
+                    style: buttonStyle,
+                    onPressed: () => context
+                        .read<QueensBloc>()
+                        .add(const QueensEvent.onSolvePressed()),
+                    child: Text(
+                      'Display solution ${state.count + 1}',
+                      style: const TextStyle(color: Colors.white),
+                    ));
+              },
+            ),
             const Spacer(),
           ],
         ));
@@ -131,18 +136,16 @@ class _PuzzlePageState extends State<PuzzlePage> {
   }
 
   void onDragAccept(
-    List<DraggableGridItem> list,
-    int beforeIndex,
-    int afterIndex,
-  ) {
-    logger.d('onDragAccept: $beforeIndex -> $afterIndex');
+      List<DraggableGridItem> list, int beforeIndex, int afterIndex) {
     context.read<QueensBloc>().add(QueensEvent.onDragApplied(
           previous: QueenModel(
-              row: beforeIndex ~/ numberOfQueens,
-              col: beforeIndex % numberOfQueens),
+            row: beforeIndex ~/ numberOfQueens,
+            col: beforeIndex % numberOfQueens,
+          ),
           current: QueenModel(
-              row: afterIndex ~/ numberOfQueens,
-              col: afterIndex % numberOfQueens),
+            row: afterIndex ~/ numberOfQueens,
+            col: afterIndex % numberOfQueens,
+          ),
         ));
   }
 
@@ -154,25 +157,4 @@ class _PuzzlePageState extends State<PuzzlePage> {
       duration: const Duration(seconds: 2),
     ));
   }
-
-  // void displaySolutions() {
-  //   final res = queensHandler.getChessBoardPositions(
-  //     queensHandler.solveNQueens()[solutionsCount],
-  //   );
-  //   setState(() {
-  //     selectedSolution = [];
-  //     for (List<int> element in res) {
-  //       selectedSolution.add(QueenModel(row: element[0], col: element[1]));
-  //     }
-  //     isSolved = true;
-  //   });
-  //
-  //   /// Increment the counter to display the next solution
-  //   /// In case of the last solution, reset the counter
-  //   if (solutionsCount == queensHandler.solveNQueens().length - 1) {
-  //     solutionsCount = 0;
-  //   } else {
-  //     solutionsCount++;
-  //   }
-  // }
 }

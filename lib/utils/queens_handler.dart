@@ -1,5 +1,6 @@
 import 'package:eight_queens/models/feedback.dart';
 import 'package:eight_queens/models/queen_model.dart';
+import 'package:flutter/material.dart';
 
 class QueensHandler {
   static int n = 8;
@@ -37,11 +38,11 @@ class QueensHandler {
   }
 
   // Covert a 1D array solution to a 2D array to place them easily on the board.
-  List<List<int>> getChessBoardPositions(List<int> solution) {
-    List<List<int>> positions = [];
+  List<QueenModel> getChessBoardPositions(List<int> solution) {
+    List<QueenModel> positions = [];
 
     for (int row = 0; row < solution.length; row++) {
-      positions.add([row, solution[row]]);
+      positions.add(QueenModel(row: row, col: solution[row]));
     }
 
     return positions;

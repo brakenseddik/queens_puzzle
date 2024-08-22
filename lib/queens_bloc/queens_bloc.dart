@@ -17,6 +17,7 @@ class QueensBloc extends Bloc<QueensEvent, QueensState> {
     on<OnCellSelected>(_onCellSelected);
     on<OnStartPressed>(_onStartPresses);
     on<OnDragApplied>(_onDragApplied);
+    on<OnSolvePressed>(_onSolvePressed);
   }
 
   FutureOr<void> _onStartPresses(
@@ -83,5 +84,26 @@ class QueensBloc extends Bloc<QueensEvent, QueensState> {
     ));
 
     _checkPlacement(emit);
+  }
+
+  FutureOr<void> _onSolvePressed(
+      OnSolvePressed event, Emitter<QueensState> emit) {
+    final res = queensHandler
+        .getChessBoardPositions(queensHandler.solveNQueens()[state.count]);
+
+    if (state.count == queensHandler.solveNQueens().length - 1) {
+      emit(state.copyWith(
+        selectedSolution: res,
+        isSolved: true,
+        count: 0,
+      ));
+    } else {
+      final count = state.count + 1;
+      emit(state.copyWith(
+        selectedSolution: res,
+        isSolved: true,
+        count: count,
+      ));
+    }
   }
 }

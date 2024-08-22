@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_draggable_gridview/flutter_draggable_gridview.dart';
 
-Widget feedback(List<DraggableGridItem> list, int index) => list[index].child;
+Widget feedback(List<DraggableGridItem> list, int index) {
+  return list[index].child;
+}
 
 PlaceHolderWidget placeHolder(List<DraggableGridItem> list, int index) {
   return PlaceHolderWidget(
