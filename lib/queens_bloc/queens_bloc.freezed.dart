@@ -627,9 +627,11 @@ abstract class OnSolvePressed implements QueensEvent {
 mixin _$QueensState {
   List<QueenModel> get selectedSolution => throw _privateConstructorUsedError;
   bool get isSolved => throw _privateConstructorUsedError;
-  int get count => throw _privateConstructorUsedError;
+  bool get isDraging => throw _privateConstructorUsedError;
+  int get solutionCounter => throw _privateConstructorUsedError;
   bool? get isPlacementValid => throw _privateConstructorUsedError;
   PlacementFeedback? get invalidFeedback => throw _privateConstructorUsedError;
+  QueenModel? get randomQueen => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $QueensStateCopyWith<QueensState> get copyWith =>
@@ -645,9 +647,11 @@ abstract class $QueensStateCopyWith<$Res> {
   $Res call(
       {List<QueenModel> selectedSolution,
       bool isSolved,
-      int count,
+      bool isDraging,
+      int solutionCounter,
       bool? isPlacementValid,
-      PlacementFeedback? invalidFeedback});
+      PlacementFeedback? invalidFeedback,
+      QueenModel? randomQueen});
 }
 
 /// @nodoc
@@ -665,9 +669,11 @@ class _$QueensStateCopyWithImpl<$Res, $Val extends QueensState>
   $Res call({
     Object? selectedSolution = null,
     Object? isSolved = null,
-    Object? count = null,
+    Object? isDraging = null,
+    Object? solutionCounter = null,
     Object? isPlacementValid = freezed,
     Object? invalidFeedback = freezed,
+    Object? randomQueen = freezed,
   }) {
     return _then(_value.copyWith(
       selectedSolution: null == selectedSolution
@@ -678,9 +684,13 @@ class _$QueensStateCopyWithImpl<$Res, $Val extends QueensState>
           ? _value.isSolved
           : isSolved // ignore: cast_nullable_to_non_nullable
               as bool,
-      count: null == count
-          ? _value.count
-          : count // ignore: cast_nullable_to_non_nullable
+      isDraging: null == isDraging
+          ? _value.isDraging
+          : isDraging // ignore: cast_nullable_to_non_nullable
+              as bool,
+      solutionCounter: null == solutionCounter
+          ? _value.solutionCounter
+          : solutionCounter // ignore: cast_nullable_to_non_nullable
               as int,
       isPlacementValid: freezed == isPlacementValid
           ? _value.isPlacementValid
@@ -690,6 +700,10 @@ class _$QueensStateCopyWithImpl<$Res, $Val extends QueensState>
           ? _value.invalidFeedback
           : invalidFeedback // ignore: cast_nullable_to_non_nullable
               as PlacementFeedback?,
+      randomQueen: freezed == randomQueen
+          ? _value.randomQueen
+          : randomQueen // ignore: cast_nullable_to_non_nullable
+              as QueenModel?,
     ) as $Val);
   }
 }
@@ -705,9 +719,11 @@ abstract class _$$QueensStateImplCopyWith<$Res>
   $Res call(
       {List<QueenModel> selectedSolution,
       bool isSolved,
-      int count,
+      bool isDraging,
+      int solutionCounter,
       bool? isPlacementValid,
-      PlacementFeedback? invalidFeedback});
+      PlacementFeedback? invalidFeedback,
+      QueenModel? randomQueen});
 }
 
 /// @nodoc
@@ -723,9 +739,11 @@ class __$$QueensStateImplCopyWithImpl<$Res>
   $Res call({
     Object? selectedSolution = null,
     Object? isSolved = null,
-    Object? count = null,
+    Object? isDraging = null,
+    Object? solutionCounter = null,
     Object? isPlacementValid = freezed,
     Object? invalidFeedback = freezed,
+    Object? randomQueen = freezed,
   }) {
     return _then(_$QueensStateImpl(
       selectedSolution: null == selectedSolution
@@ -736,9 +754,13 @@ class __$$QueensStateImplCopyWithImpl<$Res>
           ? _value.isSolved
           : isSolved // ignore: cast_nullable_to_non_nullable
               as bool,
-      count: null == count
-          ? _value.count
-          : count // ignore: cast_nullable_to_non_nullable
+      isDraging: null == isDraging
+          ? _value.isDraging
+          : isDraging // ignore: cast_nullable_to_non_nullable
+              as bool,
+      solutionCounter: null == solutionCounter
+          ? _value.solutionCounter
+          : solutionCounter // ignore: cast_nullable_to_non_nullable
               as int,
       isPlacementValid: freezed == isPlacementValid
           ? _value.isPlacementValid
@@ -748,6 +770,10 @@ class __$$QueensStateImplCopyWithImpl<$Res>
           ? _value.invalidFeedback
           : invalidFeedback // ignore: cast_nullable_to_non_nullable
               as PlacementFeedback?,
+      randomQueen: freezed == randomQueen
+          ? _value.randomQueen
+          : randomQueen // ignore: cast_nullable_to_non_nullable
+              as QueenModel?,
     ));
   }
 }
@@ -758,9 +784,11 @@ class _$QueensStateImpl implements _QueensState {
   const _$QueensStateImpl(
       {required final List<QueenModel> selectedSolution,
       required this.isSolved,
-      required this.count,
+      required this.isDraging,
+      required this.solutionCounter,
       required this.isPlacementValid,
-      required this.invalidFeedback})
+      required this.invalidFeedback,
+      required this.randomQueen})
       : _selectedSolution = selectedSolution;
 
   final List<QueenModel> _selectedSolution;
@@ -775,15 +803,19 @@ class _$QueensStateImpl implements _QueensState {
   @override
   final bool isSolved;
   @override
-  final int count;
+  final bool isDraging;
+  @override
+  final int solutionCounter;
   @override
   final bool? isPlacementValid;
   @override
   final PlacementFeedback? invalidFeedback;
+  @override
+  final QueenModel? randomQueen;
 
   @override
   String toString() {
-    return 'QueensState(selectedSolution: $selectedSolution, isSolved: $isSolved, count: $count, isPlacementValid: $isPlacementValid, invalidFeedback: $invalidFeedback)';
+    return 'QueensState(selectedSolution: $selectedSolution, isSolved: $isSolved, isDraging: $isDraging, solutionCounter: $solutionCounter, isPlacementValid: $isPlacementValid, invalidFeedback: $invalidFeedback, randomQueen: $randomQueen)';
   }
 
   @override
@@ -795,11 +827,16 @@ class _$QueensStateImpl implements _QueensState {
                 .equals(other._selectedSolution, _selectedSolution) &&
             (identical(other.isSolved, isSolved) ||
                 other.isSolved == isSolved) &&
-            (identical(other.count, count) || other.count == count) &&
+            (identical(other.isDraging, isDraging) ||
+                other.isDraging == isDraging) &&
+            (identical(other.solutionCounter, solutionCounter) ||
+                other.solutionCounter == solutionCounter) &&
             (identical(other.isPlacementValid, isPlacementValid) ||
                 other.isPlacementValid == isPlacementValid) &&
             (identical(other.invalidFeedback, invalidFeedback) ||
-                other.invalidFeedback == invalidFeedback));
+                other.invalidFeedback == invalidFeedback) &&
+            (identical(other.randomQueen, randomQueen) ||
+                other.randomQueen == randomQueen));
   }
 
   @override
@@ -807,9 +844,11 @@ class _$QueensStateImpl implements _QueensState {
       runtimeType,
       const DeepCollectionEquality().hash(_selectedSolution),
       isSolved,
-      count,
+      isDraging,
+      solutionCounter,
       isPlacementValid,
-      invalidFeedback);
+      invalidFeedback,
+      randomQueen);
 
   @JsonKey(ignore: true)
   @override
@@ -822,20 +861,26 @@ abstract class _QueensState implements QueensState {
   const factory _QueensState(
       {required final List<QueenModel> selectedSolution,
       required final bool isSolved,
-      required final int count,
+      required final bool isDraging,
+      required final int solutionCounter,
       required final bool? isPlacementValid,
-      required final PlacementFeedback? invalidFeedback}) = _$QueensStateImpl;
+      required final PlacementFeedback? invalidFeedback,
+      required final QueenModel? randomQueen}) = _$QueensStateImpl;
 
   @override
   List<QueenModel> get selectedSolution;
   @override
   bool get isSolved;
   @override
-  int get count;
+  bool get isDraging;
+  @override
+  int get solutionCounter;
   @override
   bool? get isPlacementValid;
   @override
   PlacementFeedback? get invalidFeedback;
+  @override
+  QueenModel? get randomQueen;
   @override
   @JsonKey(ignore: true)
   _$$QueensStateImplCopyWith<_$QueensStateImpl> get copyWith =>

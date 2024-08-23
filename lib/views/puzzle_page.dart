@@ -1,12 +1,11 @@
-import 'package:eight_queens/main.dart';
 import 'package:eight_queens/queens_bloc/queens_bloc.dart';
 import 'package:eight_queens/utils/constants.dart';
 import 'package:eight_queens/models/queen_model.dart';
+import 'package:eight_queens/utils/helper_functions.dart';
 import 'package:eight_queens/utils/queens_handler.dart';
-import 'package:eight_queens/views/cell_item.dart';
-import 'package:eight_queens/views/draggable_widgets.dart';
+import 'package:eight_queens/views/widgets/drag_widget.dart';
+import 'package:eight_queens/views/widgets/show_solution_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_draggable_gridview/flutter_draggable_gridview.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PuzzlePage extends StatefulWidget {
@@ -23,11 +22,9 @@ class _PuzzlePageState extends State<PuzzlePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.deepPurple,
           centerTitle: true,
           title: const Text(
             '👑 Eight Queens Puzzle 👑',
-            style: TextStyle(color: Colors.white),
           ),
         ),
         body: Column(
@@ -35,17 +32,13 @@ class _PuzzlePageState extends State<PuzzlePage> {
             BlocConsumer<QueensBloc, QueensState>(
               listener: (context, state) {
                 if (state.selectedSolution.length == 8) {
-                  showGameResult(state.isSolved);
+                  HelperFunctions.showGameResult(context, state.isSolved);
                 }
                 if (state.isPlacementValid == false) {
-                  ScaffoldMessenger.of(context).clearSnackBars();
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    backgroundColor: Colors.deepPurpleAccent,
-                    content: Text(
-                      'Invalid placement: Queens at positions (${state.invalidFeedback!.queen1.row},${state.invalidFeedback!.queen1.col}) and (${state.invalidFeedback!.queen2.row},${state.invalidFeedback!.queen2.col}) can threaten each other',
-                    ),
-                    duration: const Duration(seconds: 3),
-                  ));
+                  HelperFunctions.showFeedbackMessage(
+                    context,
+                    state.invalidFeedback!,
+                  );
                 }
               },
               builder: (context, state) {
@@ -53,108 +46,64 @@ class _PuzzlePageState extends State<PuzzlePage> {
                   margin: const EdgeInsets.all(4),
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.width,
-                  child: DraggableGridViewBuilder(
+                  child: GridView.builder(
                     physics: const NeverScrollableScrollPhysics(),
-                    dragCompletion: onDragAccept,
-                    isOnlyLongPress: false,
-                    dragFeedback: feedback,
-                    dragPlaceHolder: placeHolder,
-                    children: buildListOfQueens(state),
+                    itemCount: numberOfQueens * numberOfQueens,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 8,
                       mainAxisSpacing: 2,
                       crossAxisSpacing: 2,
                     ),
+                    itemBuilder: (context, index) {
+                      final QueenModel queen = QueenModel(
+                        row: index ~/ numberOfQueens,
+                        col: index % numberOfQueens,
+                      );
+                      bool selected = state.selectedSolution.any((element) =>
+                          element.row == queen.row && element.col == queen.col);
+                      bool isDraggable = state.randomQueen?.row == queen.row &&
+                          state.randomQueen?.col == queen.col;
+                      bool isSolved = state.isSolved && selected;
+
+                      return DragTarget<QueenModel>(
+                        onAcceptWithDetails: (receivedQueen) {
+                          context
+                              .read<QueensBloc>()
+                              .add(QueensEvent.onDragApplied(
+                                previous: receivedQueen.data,
+                                current: queen,
+                              ));
+                        },
+                        builder: (context, acceptedQueens, rejectedQueens) {
+                          return DragWidget(
+                            queen: queen,
+                            selected: selected,
+                            isSolved: isSolved,
+                            isDraggable: isDraggable,
+                          );
+                        },
+                      );
+                    },
                   ),
                 );
               },
             ),
             const Spacer(),
             ElevatedButton(
-                style: buttonStyle,
                 onPressed: () => context
                     .read<QueensBloc>()
                     .add(const QueensEvent.onStartPressed()),
                 child: const Text(
-                  'Start',
+                  'Random Start',
                   style: TextStyle(color: Colors.white),
                 )),
             const SizedBox(
               height: 16,
             ),
-            BlocBuilder<QueensBloc, QueensState>(
-              buildWhen: (previous, current) => previous.count != current.count,
-              builder: (context, state) {
-                return ElevatedButton(
-                    style: buttonStyle,
-                    onPressed: () => context
-                        .read<QueensBloc>()
-                        .add(const QueensEvent.onSolvePressed()),
-                    child: Text(
-                      'Display solution ${state.count + 1}',
-                      style: const TextStyle(color: Colors.white),
-                    ));
-              },
-            ),
+            const ShowSolutionButton(),
             const Spacer(),
           ],
         ));
-  }
-
-  List<DraggableGridItem> buildListOfQueens(QueensState state) {
-    return List.generate(
-      numberOfQueens * numberOfQueens,
-      (index) {
-        final row = index ~/ numberOfQueens;
-        final col = index % numberOfQueens;
-        final QueenModel queen = QueenModel(row: row, col: col);
-        bool selected =
-            queensHandler.containsPosition(state.selectedSolution, queen);
-        return DraggableGridItem(
-          isDraggable: true,
-          dragCallback: (BuildContext context, bool isDragging) {
-            logger.d('isDragging: $isDragging');
-          },
-          child: QueenCellWidget(
-            queen: queen,
-            selected: selected,
-            isSolved: state.isSolved &&
-                queensHandler.containsPosition(
-                  state.selectedSolution,
-                  queen,
-                ),
-            onTap: () => context.read<QueensBloc>().add(
-                  QueensEvent.onCellSelected(
-                    queen: queen,
-                  ),
-                ),
-          ),
-        );
-      },
-    );
-  }
-
-  void onDragAccept(
-      List<DraggableGridItem> list, int beforeIndex, int afterIndex) {
-    context.read<QueensBloc>().add(QueensEvent.onDragApplied(
-          previous: QueenModel(
-            row: beforeIndex ~/ numberOfQueens,
-            col: beforeIndex % numberOfQueens,
-          ),
-          current: QueenModel(
-            row: afterIndex ~/ numberOfQueens,
-            col: afterIndex % numberOfQueens,
-          ),
-        ));
-  }
-
-  showGameResult(bool isSolved) {
-    ScaffoldMessenger.of(context).clearSnackBars();
-    return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      backgroundColor: isSolved ? Colors.green : Colors.redAccent,
-      content: Text(isSolved ? successMessage : failureMessage),
-      duration: const Duration(seconds: 2),
-    ));
   }
 }

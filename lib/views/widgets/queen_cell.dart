@@ -17,36 +17,42 @@ class QueenCellWidget extends StatelessWidget {
   final bool isSolved;
   final VoidCallback onTap;
 
-  Color get boxColor => isSolved
-      ? Colors.green
-      : (queen.row % 2 == queen.col % 2)
-          ? Colors.deepPurple
-          : Colors.deepPurple.shade200;
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        onTap.call();
-      },
+      onTap: () => onTap.call(),
       child: Container(
         width: MediaQuery.of(context).size.width / numberOfQueens,
         height: MediaQuery.of(context).size.width / numberOfQueens,
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: boxColor,
+          border: Border.all(
+            color: Colors.deepPurple,
+            width: 1,
+          ),
         ),
         child: selected
             ? SvgPicture.asset(
                 'assets/crown.svg',
                 width: 40,
-                colorFilter: const ColorFilter.mode(
-                  Colors.white,
+                colorFilter: ColorFilter.mode(
+                  queen.row % 2 == queen.col % 2
+                      ? Colors.white
+                      : Colors.deepPurple,
                   BlendMode.srcIn,
                 ),
               )
             : const SizedBox.shrink(),
       ),
     );
+  }
+
+  Color get boxColor {
+    return isSolved
+        ? Colors.green
+        : (queen.row % 2 == queen.col % 2)
+            ? Colors.deepPurple
+            : Colors.deepPurple.shade50;
   }
 }

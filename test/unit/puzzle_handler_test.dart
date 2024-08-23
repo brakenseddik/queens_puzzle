@@ -1,4 +1,4 @@
-import 'package:eight_queens/models/feedback.dart';
+import 'package:eight_queens/models/placement_feedback.dart';
 import 'package:eight_queens/models/queen_model.dart';
 import 'package:eight_queens/utils/queens_handler.dart';
 import 'package:flutter_test/flutter_test.dart';

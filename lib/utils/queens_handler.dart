@@ -1,13 +1,15 @@
-import 'package:eight_queens/models/feedback.dart';
+import 'package:eight_queens/models/placement_feedback.dart';
 import 'package:eight_queens/models/queen_model.dart';
-import 'package:flutter/material.dart';
+import 'package:eight_queens/utils/constants.dart';
 
+/// The QueensHandler class is responsible for solving and validating the Eight Queens Puzzle
+/// It contains methods to solve the puzzle [solveNQueens] to help user understand the puzzle
+/// and validate the solution [isValidSolution] to check if the queens are not attacking each other
 class QueensHandler {
-  static int n = 8;
   List<List<int>> solveNQueens() {
     List<List<int>> solutions = [];
-    List<int> board = List.filled(n, -1);
-    _solve(0, board, solutions, n);
+    List<int> board = List.filled(numberOfQueens, -1);
+    _solve(0, board, solutions, numberOfQueens);
     return solutions;
   }
 
@@ -37,7 +39,9 @@ class QueensHandler {
     return true;
   }
 
-  // Covert a 1D array solution to a 2D array to place them easily on the board.
+  /// Get the positions of the queens on the chess board
+  /// It accepts a list of integers representing the column positions of the queens
+  /// and returns a list of [QueenModel] objects
   List<QueenModel> getChessBoardPositions(List<int> solution) {
     List<QueenModel> positions = [];
 
@@ -46,17 +50,6 @@ class QueensHandler {
     }
 
     return positions;
-  }
-
-  /// Checks if a given target is in the list of positions
-  // It checks which cells represent the positions of the queens
-  bool containsPosition(List<QueenModel> positions, QueenModel target) {
-    for (final position in positions) {
-      if (position.row == target.row && position.col == target.col) {
-        return true;
-      }
-    }
-    return false;
   }
 
   /// Validate the solution by checking if the queens are not attacking each other

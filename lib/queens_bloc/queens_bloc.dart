@@ -1,5 +1,6 @@
 import 'dart:async';
-import 'package:eight_queens/models/feedback.dart';
+import 'dart:math';
+import 'package:eight_queens/models/placement_feedback.dart';
 import 'package:eight_queens/models/queen_model.dart';
 import 'package:eight_queens/utils/constants.dart';
 import 'package:eight_queens/utils/queens_handler.dart';
@@ -22,45 +23,62 @@ class QueensBloc extends Bloc<QueensEvent, QueensState> {
 
   FutureOr<void> _onStartPresses(
       OnStartPressed event, Emitter<QueensState> emit) {
+    final randomIndex = Random().nextInt((numberOfQueens * numberOfQueens) - 1);
+    final queen = QueenModel(
+      row: randomIndex ~/ numberOfQueens,
+      col: randomIndex % numberOfQueens,
+    );
     emit(state.copyWith(
-      selectedSolution: [],
+      selectedSolution: [queen],
       isSolved: false,
-      count: 0,
+      isPlacementValid: null,
+      solutionCounter: 0,
+      invalidFeedback: null,
+      randomQueen: queen,
     ));
   }
 
   FutureOr<void> _onCellSelected(
-    OnCellSelected event,
-    Emitter<QueensState> emit,
-  ) {
+      OnCellSelected event, Emitter<QueensState> emit) {
     _upsertQueen(event, emit);
     _checkPlacement(emit);
   }
 
+  /// This function is used to add or remove a queen from the selectedSolution list
+  /// The max number of queens that can be placed is equal to the [numberOfQueens]
   void _upsertQueen(OnCellSelected event, Emitter<QueensState> emit) {
-    if (queensHandler.containsPosition(state.selectedSolution, event.queen)) {
-      final updatedList = List.of(state.selectedSolution)
-        ..removeWhere((element) =>
-            element.row == event.queen.row && element.col == event.queen.col);
+    final existingQueenIndex = state.selectedSolution.indexWhere((element) =>
+        element.row == event.queen.row && element.col == event.queen.col);
 
-      emit(state.copyWith(
-          selectedSolution: updatedList, isPlacementValid: null));
-    } else if (state.selectedSolution.length < numberOfQueens) {
-      final updatedList = List.of(state.selectedSolution)..add(event.queen);
-      emit(state.copyWith(
-          selectedSolution: updatedList, isPlacementValid: null));
+    List<QueenModel> updatedList = List.of(state.selectedSolution);
+
+    if (existingQueenIndex != -1) {
+      // If the queen already exists, remove it
+      updatedList.removeAt(existingQueenIndex);
+    } else if (updatedList.length < numberOfQueens) {
+      // If the queen doesn't exist and the maximum number is not reached, add it
+      updatedList.add(event.queen);
     }
+
+    emit(state.copyWith(
+      selectedSolution: updatedList,
+      isPlacementValid: null,
+    ));
   }
 
+  /// This function is used to check if the queens are placed correctly
+  /// It updates the state with the feedback of the placement on the chess board
   void _checkPlacement(Emitter<QueensState> emit) {
     if (state.selectedSolution.length > 1) {
-      PlacementFeedback placementFeedback =
+      final placementFeedback =
           queensHandler.isValidSolution(state.selectedSolution);
+      final isSolved = placementFeedback.type == PlacementFeedbackType.VALID &&
+          state.selectedSolution.length == numberOfQueens;
+
       emit(state.copyWith(
         selectedSolution: state.selectedSolution,
         isPlacementValid: placementFeedback.type == PlacementFeedbackType.VALID,
-        isSolved: placementFeedback.type == PlacementFeedbackType.VALID &&
-            state.selectedSolution.length == numberOfQueens,
+        isSolved: isSolved,
         invalidFeedback: placementFeedback.type != PlacementFeedbackType.VALID
             ? placementFeedback
             : null,
@@ -70,15 +88,18 @@ class QueensBloc extends Bloc<QueensEvent, QueensState> {
 
   FutureOr<void> _onDragApplied(
       OnDragApplied event, Emitter<QueensState> emit) {
-    final previous = event.previous;
-    final current = event.current;
+    final previous = event.previous; // previous position
+    final current = event.current; // current position
 
+    /// Remove the previous queen and add the current queen
+    /// we do that because the drag and drop actually makes a copy
     final updatedList = List.of(state.selectedSolution)
       ..removeWhere((element) {
         return element.row == previous.row && element.col == previous.col;
       })
       ..add(current);
     emit(state.copyWith(
+      isDraging: true,
       selectedSolution: updatedList,
       isPlacementValid: null,
     ));
@@ -86,23 +107,29 @@ class QueensBloc extends Bloc<QueensEvent, QueensState> {
     _checkPlacement(emit);
   }
 
+  /// This function is used to provide solutions for the N-Queens problem
+  /// It updates the state with the selected solution
+  /// It gives the user a solution if the user could not solve the puzzle
   FutureOr<void> _onSolvePressed(
       OnSolvePressed event, Emitter<QueensState> emit) {
-    final res = queensHandler
-        .getChessBoardPositions(queensHandler.solveNQueens()[state.count]);
-
-    if (state.count == queensHandler.solveNQueens().length - 1) {
+    // generate a solution based on the current counter value
+    // convert the solution to a list of QueenModel objects
+    final res = queensHandler.getChessBoardPositions(
+        queensHandler.solveNQueens()[state.solutionCounter]);
+    if (state.solutionCounter == queensHandler.solveNQueens().length - 1) {
       emit(state.copyWith(
         selectedSolution: res,
         isSolved: true,
-        count: 0,
+        solutionCounter: 0,
+        isPlacementValid: true,
       ));
     } else {
-      final count = state.count + 1;
+      final count = state.solutionCounter + 1;
       emit(state.copyWith(
         selectedSolution: res,
         isSolved: true,
-        count: count,
+        isPlacementValid: true,
+        solutionCounter: count,
       ));
     }
   }
