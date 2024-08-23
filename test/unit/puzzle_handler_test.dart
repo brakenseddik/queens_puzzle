@@ -6,8 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   final handler = QueensHandler();
   group('isValidSolution test', () {
-    test('should return PlacementFeedbackType.VALID when solution is valid',
-        () {
+    test('should return unit when solution is valid', () {
       final solution =
           handler.getChessBoardPositions(handler.solveNQueens().first);
       final result = handler.isValidSolution(solution);
@@ -15,7 +14,7 @@ void main() {
     });
 
     test(
-        'should return PlacementFeedbackType.SAME_ROW when 2 or three queens are on same row',
+        'should return PlacementFeedbackType.SAME_ROW when  queens are on same row',
         () {
       final solution =
           List.generate(8, (index) => QueenModel(row: 0, col: index));
