@@ -1,6 +1,8 @@
 # Eight Queens Puzzle 👑
 
-A new Flutter project.
+This is a Flutter project that solves the Eight Queens Puzzle.
+The Eight Queens Puzzle is the problem of placing eight chess queens on an 8×8 chessboard.
+No two queens threaten each other; thus, a solution requires that no two queens share the same row, column, or diagonal.
 
 ## Getting Started
 
