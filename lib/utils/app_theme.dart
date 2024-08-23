@@ -13,7 +13,7 @@ class AppThemes {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
         backgroundColor: WidgetStateProperty.all(Colors.deepPurpleAccent),
-        minimumSize: WidgetStateProperty.all(const Size(300, 50)),
+        minimumSize: WidgetStateProperty.all(const Size(200, 50)),
       ),
     ),
   );

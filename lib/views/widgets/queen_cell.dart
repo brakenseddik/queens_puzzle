@@ -36,10 +36,8 @@ class QueenCellWidget extends StatelessWidget {
             ? SvgPicture.asset(
                 'assets/crown.svg',
                 width: 40,
-                colorFilter: ColorFilter.mode(
-                  queen.row % 2 == queen.col % 2
-                      ? Colors.white
-                      : Colors.deepPurple,
+                colorFilter: const ColorFilter.mode(
+                  Colors.white,
                   BlendMode.srcIn,
                 ),
               )
