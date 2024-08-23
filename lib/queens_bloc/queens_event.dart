@@ -13,4 +13,5 @@ class QueensEvent with _$QueensEvent {
 
   const factory QueensEvent.onStartPressed() = OnStartPressed;
   const factory QueensEvent.onSolvePressed() = OnSolvePressed;
+  const factory QueensEvent.onResetPressed() = OnResetPressed;
 }

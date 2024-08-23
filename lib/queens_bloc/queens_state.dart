@@ -5,7 +5,6 @@ class QueensState with _$QueensState {
   const factory QueensState({
     required List<QueenModel> selectedSolution,
     required bool isSolved,
-    required bool isDraging,
     required int solutionCounter,
     required bool? isPlacementValid,
     required PlacementFeedback? invalidFeedback,
@@ -19,6 +18,5 @@ class QueensState with _$QueensState {
         isPlacementValid: null,
         invalidFeedback: null,
         randomQueen: null,
-        isDraging: false,
       );
 }

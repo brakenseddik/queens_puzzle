@@ -43,9 +43,7 @@ class DragWidget extends StatelessWidget {
             queen: queen,
             selected: selected,
             isSolved: isSolved,
-            onTap: () => context
-                .read<QueensBloc>()
-                .add(QueensEvent.onCellSelected(queen: queen)),
+            onTap: () {},
           );
   }
 }

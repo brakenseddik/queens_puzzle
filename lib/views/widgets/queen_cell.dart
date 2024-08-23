@@ -53,6 +53,6 @@ class QueenCellWidget extends StatelessWidget {
         ? Colors.green
         : (queen.row % 2 == queen.col % 2)
             ? Colors.deepPurple
-            : Colors.deepPurple.shade50;
+            : Colors.deepPurple.shade100;
   }
 }

@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:eight_queens/models/placement_feedback.dart';
 import 'package:eight_queens/models/queen_model.dart';
 import 'package:eight_queens/utils/constants.dart';
@@ -55,37 +56,34 @@ class QueensHandler {
   /// Validate the solution by checking if the queens are not attacking each other
   /// The solution is valid if no two queens are in the same row, column, or diagonal
   /// IT accepts a list of [QueenModel] objects and returns a [PlacementFeedback]
-  PlacementFeedback isValidSolution(List<QueenModel> solution) {
+  Either<PlacementFeedback, Unit> isValidSolution(List<QueenModel> solution) {
     for (int i = 0; i < solution.length; i++) {
       for (int j = i + 1; j < solution.length; j++) {
         if (solution[i].row == solution[j].row) {
-          return PlacementFeedback(
+          return left(PlacementFeedback(
               type: PlacementFeedbackType.SAME_ROW,
               queen1: solution[i],
-              queen2: solution[j]);
+              queen2: solution[j]));
         } else if (solution[i].col == solution[j].col) {
-          return PlacementFeedback(
+          return left(PlacementFeedback(
               type: PlacementFeedbackType.SAME_COLUMN,
               queen1: solution[i],
-              queen2: solution[j]);
+              queen2: solution[j]));
         } else if (solution[i].row - solution[i].col ==
             solution[j].row - solution[j].col) {
-          return PlacementFeedback(
+          return left(PlacementFeedback(
               type: PlacementFeedbackType.SAME_DIAGONAL,
               queen1: solution[i],
-              queen2: solution[j]);
+              queen2: solution[j]));
         } else if (solution[i].row + solution[i].col ==
             solution[j].row + solution[j].col) {
-          return PlacementFeedback(
+          return left(PlacementFeedback(
               type: PlacementFeedbackType.SAME_DIAGONAL,
               queen1: solution[i],
-              queen2: solution[j]);
+              queen2: solution[j]));
         }
       }
     }
-    return PlacementFeedback(
-        type: PlacementFeedbackType.VALID,
-        queen1: QueenModel(row: -1, col: -1),
-        queen2: QueenModel(row: -1, col: -1));
+    return right(unit);
   }
 }

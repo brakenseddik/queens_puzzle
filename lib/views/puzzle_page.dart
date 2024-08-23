@@ -4,19 +4,16 @@ import 'package:eight_queens/models/queen_model.dart';
 import 'package:eight_queens/utils/helper_functions.dart';
 import 'package:eight_queens/utils/queens_handler.dart';
 import 'package:eight_queens/views/widgets/drag_widget.dart';
-import 'package:eight_queens/views/widgets/show_solution_button.dart';
+import 'package:eight_queens/views/widgets/reset_button.dart';
+import 'package:eight_queens/views/widgets/solution_button.dart';
+import 'package:eight_queens/views/widgets/start_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class PuzzlePage extends StatefulWidget {
-  const PuzzlePage({super.key});
+class PuzzlePage extends StatelessWidget {
+  const PuzzlePage({super.key, required this.queensHandler});
 
-  @override
-  State<PuzzlePage> createState() => _PuzzlePageState();
-}
-
-class _PuzzlePageState extends State<PuzzlePage> {
-  QueensHandler queensHandler = QueensHandler();
+  final QueensHandler queensHandler;
 
   @override
   Widget build(BuildContext context) {
@@ -62,8 +59,8 @@ class _PuzzlePageState extends State<PuzzlePage> {
                       );
                       bool selected = state.selectedSolution.any((element) =>
                           element.row == queen.row && element.col == queen.col);
-                      bool isDraggable = state.randomQueen?.row == queen.row &&
-                          state.randomQueen?.col == queen.col;
+                      bool isDraggable = state.randomQueen?.row != queen.row &&
+                          state.randomQueen?.col != queen.col;
                       bool isSolved = state.isSolved && selected;
 
                       return DragTarget<QueenModel>(
@@ -89,20 +86,18 @@ class _PuzzlePageState extends State<PuzzlePage> {
                 );
               },
             ),
-            const Spacer(),
-            ElevatedButton(
-                onPressed: () => context
-                    .read<QueensBloc>()
-                    .add(const QueensEvent.onStartPressed()),
-                child: const Text(
-                  'Random Start',
-                  style: TextStyle(color: Colors.white),
-                )),
+            const SizedBox(
+              height: 32,
+            ),
+            const StartButton(),
             const SizedBox(
               height: 16,
             ),
             const ShowSolutionButton(),
-            const Spacer(),
+            const SizedBox(
+              height: 16,
+            ),
+            const ResetButton(),
           ],
         ));
   }

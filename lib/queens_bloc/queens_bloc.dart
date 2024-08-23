@@ -19,6 +19,7 @@ class QueensBloc extends Bloc<QueensEvent, QueensState> {
     on<OnStartPressed>(_onStartPresses);
     on<OnDragApplied>(_onDragApplied);
     on<OnSolvePressed>(_onSolvePressed);
+    on<OnResetPressed>(_onResetPressed);
   }
 
   FutureOr<void> _onStartPresses(
@@ -70,18 +71,15 @@ class QueensBloc extends Bloc<QueensEvent, QueensState> {
   /// It updates the state with the feedback of the placement on the chess board
   void _checkPlacement(Emitter<QueensState> emit) {
     if (state.selectedSolution.length > 1) {
-      final placementFeedback =
-          queensHandler.isValidSolution(state.selectedSolution);
-      final isSolved = placementFeedback.type == PlacementFeedbackType.VALID &&
-          state.selectedSolution.length == numberOfQueens;
+      final res = queensHandler.isValidSolution(state.selectedSolution);
+      final isSolved =
+          res.isRight() && state.selectedSolution.length == numberOfQueens;
 
       emit(state.copyWith(
         selectedSolution: state.selectedSolution,
-        isPlacementValid: placementFeedback.type == PlacementFeedbackType.VALID,
+        isPlacementValid: res.isRight(),
         isSolved: isSolved,
-        invalidFeedback: placementFeedback.type != PlacementFeedbackType.VALID
-            ? placementFeedback
-            : null,
+        invalidFeedback: res.fold((feedback) => feedback, (unit) => null),
       ));
     }
   }
@@ -90,7 +88,6 @@ class QueensBloc extends Bloc<QueensEvent, QueensState> {
       OnDragApplied event, Emitter<QueensState> emit) {
     final previous = event.previous; // previous position
     final current = event.current; // current position
-
     /// Remove the previous queen and add the current queen
     /// we do that because the drag and drop actually makes a copy
     final updatedList = List.of(state.selectedSolution)
@@ -99,7 +96,6 @@ class QueensBloc extends Bloc<QueensEvent, QueensState> {
       })
       ..add(current);
     emit(state.copyWith(
-      isDraging: true,
       selectedSolution: updatedList,
       isPlacementValid: null,
     ));
@@ -132,5 +128,11 @@ class QueensBloc extends Bloc<QueensEvent, QueensState> {
         solutionCounter: count,
       ));
     }
+  }
+
+  /// This function is used to reset the state of the game
+  FutureOr<void> _onResetPressed(
+      OnResetPressed event, Emitter<QueensState> emit) {
+    emit(QueensState.initial());
   }
 }

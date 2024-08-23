@@ -11,7 +11,7 @@ void main() {
       final solution =
           handler.getChessBoardPositions(handler.solveNQueens().first);
       final result = handler.isValidSolution(solution);
-      expect(result.type, PlacementFeedbackType.VALID);
+      expect(result.isRight(), isTrue);
     });
 
     test(
@@ -20,7 +20,15 @@ void main() {
       final solution =
           List.generate(8, (index) => QueenModel(row: 0, col: index));
       final result = handler.isValidSolution(solution);
-      expect(result.type, PlacementFeedbackType.SAME_ROW);
+      expect(result.isLeft(), isTrue);
+      result.fold(
+        (feedback) {
+          expect(feedback.type, PlacementFeedbackType.SAME_ROW);
+        },
+        (unit) {
+          fail('Should return PlacementFeedback');
+        },
+      );
     });
 
     test(
@@ -29,7 +37,15 @@ void main() {
       final solution =
           List.generate(8, (index) => QueenModel(row: index, col: 0));
       final result = handler.isValidSolution(solution);
-      expect(result.type, PlacementFeedbackType.SAME_COLUMN);
+      expect(result.isLeft(), isTrue);
+      result.fold(
+        (feedback) {
+          expect(feedback.type, PlacementFeedbackType.SAME_COLUMN);
+        },
+        (unit) {
+          fail('Should return PlacementFeedback');
+        },
+      );
     });
 
     test(
@@ -38,7 +54,15 @@ void main() {
       final solution =
           List.generate(8, (index) => QueenModel(row: index, col: index));
       final result = handler.isValidSolution(solution);
-      expect(result.type, PlacementFeedbackType.SAME_DIAGONAL);
+      expect(result.isLeft(), isTrue);
+      result.fold(
+        (feedback) {
+          expect(feedback.type, PlacementFeedbackType.SAME_DIAGONAL);
+        },
+        (unit) {
+          fail('Should return PlacementFeedback');
+        },
+      );
     });
   });
 }
